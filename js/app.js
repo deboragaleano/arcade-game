@@ -13,7 +13,7 @@ class Enemy {
     }
 
     update(dt) { 
-        
+
         // manages on/off canvas randomly 
         if(this.x > ctx.canvas.width + this.width) {
             this.x = -200 * Math.floor(Math.random() * 4) + 1; 
@@ -54,9 +54,10 @@ class Player {
         
         positionsX.forEach(position => {
             if(player.x === position && player.y === positionY) {
+                showModal(); 
                 setTimeout(() => {
                     player.x = 202;
-                    player.y = 400; 
+                    player.y = 400;
                 }, 400)
             }
         });     
@@ -107,4 +108,19 @@ document.addEventListener('keyup', function(e) {
 });
 
 
+/******* MODAL FUNCTION ******/
+
+let modal = document.querySelector(".bg-modal"); 
+
+function showModal() {
+    modal.style.display = 'flex'; 
+}
+
+closeModal()
+
+function closeModal() {
+    modal.addEventListener('click', function() {
+        this.style.display = "none"; 
+    })
+}
 /* -------------------------------------------------------------- */ 

@@ -1,4 +1,8 @@
-# Classic Arcade Game Clone Project
+# Classic Arcade Game 
+
+This is a classic memory or matching game. The game board consists of 16 cards arranged randomly. The deck is made of 8 different pairs of cards, each with different hidden symbols that can be revealed by flipping over and locating the ones that match. 
+
+Additional features include: star-rating, timer, a moves-counter and a reset button. 
 
 ## Table of Contents
 
