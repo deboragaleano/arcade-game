@@ -4,26 +4,16 @@
 
 /* TO DO 
  - The Enemy function, which initiates the Enemy by:
-        Loading the image by setting this.sprite to the appropriate image in the image folder (already provided)
-        Setting the Enemy initial location (you need to implement)
         Setting the Enemy speed (you need to implement)
 - The update method for the Enemy
-        Updates the Enemy location (you need to implement)
         Handles collision with the Player (you need to implement)
-- You can add your own Enemy methods as needed
 
 */
 
-// Enemies our player must avoid
-
 class Enemy {
     constructor(x, y, s) {
-        // The image/sprite for our enemies, this uses
-        // a helper we've provided to easily load images
         this.sprite = 'images/enemy-bug.png';
-   
-        // Setting the Enemy initial location (you need to implement)
-        this.x = x;
+           this.x = x;
         this.y = y;
 
         // Setting the Enemy speed (you need to implement)
@@ -33,16 +23,22 @@ class Enemy {
 
     }
 
-    // ADD METHODS HERE 
-
         // Update the enemy's position OR LOCATION, required method for game
         // Parameter: dt, a time delta between ticks
-        // Handles collision with the Player (you need to implement)
     update(dt) { 
-        this.speed * dt; 
+        this.x += 150 * dt; 
         // You should multiply any movement by the dt parameter
         // which will ensure the game runs at the same speed for
         // all computers.
+
+        // handles collision
+        if (this.x < player.x + player.width  && 
+            this.x + this.width  > player.x && 
+            this.y < player.y + player.height && 
+            this.y + this.height > player.y) {
+                player.x = 202;
+                player.y = 400; 
+        }
     } 
     
         // Draw the enemy on the screen, required method for game
@@ -53,47 +49,10 @@ class Enemy {
 
 }
 
-
-/* -------------------------------------------------------------- *
-       OLD ENEMY OBJECTS  
-
-// var Enemy = function() {
-//     // Variables applied to each of our instances go here,
-//     // we've provided one for you to get started - 
-//     /* The actual object is an instance.*/
-
-//     // The image/sprite for our enemies, this uses
-//     // a helper we've provided to easily load images
-//     this.sprite = 'images/enemy-bug.png';
-// };
-
-// METHODS
-
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-// Enemy.prototype.update = function(dt) {
-//     // You should multiply any movement by the dt parameter
-//     // which will ensure the game runs at the same speed for
-//     // all computers.
-// };
-
-// // Draw the enemy on the screen, required method for game
-// Enemy.prototype.render = function() {
-//     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-// // };
-
-/* -------------------------------------------------------------- *
-
-/******* PLAYER'S OBJECTS & METHODS ******/
-
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+/******* PLAYER'S CLASS & METHODS ******/
 
 class Player {
     constructor(x, y) {
-        // The image/sprite for our enemies, this uses
-        // a helper we've provided to easily load images
         this.sprite = 'images/char-pink-girl.png';
         this.x = x;
         this.y = y; 
@@ -101,11 +60,7 @@ class Player {
         this.width = 65; 
     }
 
-    // ADD METHODS HERE 
-
-        // Update the enemy's position OR LOCATION, required method for game
-        // Parameter: dt, a time delta between ticks
-        // Handles collision with the Player (you need to implement)
+    // The update method for the Player (can be similar to the one for the Enemy) 
     update(dt) { 
 
     } 
@@ -115,27 +70,41 @@ class Player {
     }
 
     handleInput(direction) {
+        const horizontal = 100, 
+              vertical = 81; 
+
         if(direction === 'left' && this.x >= 100) {
-            this.x -= 100; 
+            this.x -= horizontal; 
         } else if(direction === 'right' && this.x <= 400) {
-            this.x += 100; 
+            this.x += horizontal; 
         } else if(direction === 'up' && this.y >= 50) {
-            this.y -= 81;
+            this.y -= vertical; 
         } else if(direction === 'down' && this.y <= 380) {
-            this.y += 81;
+            this.y += vertical;
         }
     }
+
+    // reset() {
+    //     if(player )
+    //     // ADD 
+    // }
+
+  /* TO DO 
+    If the player reaches the water the game should be reset by moving the player back to the initial location (you can write a separate reset Player method to handle that)
+    */ 
+
 }
+  
 
 
-/******* INSTANTIATE MY OBJECTS ******/
+/******* INSTANTIATE OBJECTS ******/
 
 // Create 3 object bugs with different positions and speed and put them all
 // in an ARRAY 
 const player = new Player(202, 400); 
-const enemy1 = new Enemy(10, 63); 
-const enemy2 = new Enemy(-50, 145); 
-const enemy3 = new Enemy(20, 230); 
+const enemy1 = new Enemy(-100, 63); 
+const enemy2 = new Enemy(20, 145); 
+const enemy3 = new Enemy(-80, 230); 
 const allEnemies = [enemy1, enemy2, enemy3]
 
 
@@ -151,5 +120,8 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    console.log(player.handleInput(allowedKeys[e.keyCode]));
+    player.handleInput(allowedKeys[e.keyCode]);
 });
+
+
+/* -------------------------------------------------------------- */ 
