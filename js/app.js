@@ -28,6 +28,8 @@ class Enemy {
 
         // Setting the Enemy speed (you need to implement)
         this.speed = s; 
+        this.height = 65;
+        this.width = 95; 
 
     }
 
@@ -95,6 +97,8 @@ class Player {
         this.sprite = 'images/char-pink-girl.png';
         this.x = x;
         this.y = y; 
+        this.height = 75;
+        this.width = 65; 
     }
 
     // ADD METHODS HERE 
@@ -110,33 +114,29 @@ class Player {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y); 
     }
 
-    // handleInput() {
-
-    // }
-
+    handleInput(direction) {
+        if(direction === 'left' && this.x >= 100) {
+            this.x -= 100; 
+        } else if(direction === 'right' && this.x <= 400) {
+            this.x += 100; 
+        } else if(direction === 'up' && this.y >= 50) {
+            this.y -= 81;
+        } else if(direction === 'down' && this.y <= 380) {
+            this.y += 81;
+        }
+    }
 }
 
 
 /******* INSTANTIATE MY OBJECTS ******/
 
-const player = new Player(202, 400); 
-const enemy1 = new Enemy(50, 63); 
-const enemy2 = new Enemy(30, 145); 
-const enemy3 = new Enemy(20, 230); 
-const allEnemies = [enemy1, enemy2, enemy3]
-
-
-
-// NOTE TO MYSELF
-// Then we go ahead and invoke Hero and instantiate a few new objects (Taylor). 
-// Calling this function with a NEW instantiates a new object which 
-// is referenced by the TAYLOR variable over here:
-// const taylor = new Hero('Taylor', 'mother');
-
-// NOTES FROM UDACITY 
-// Now instantiate your objects.
 // Create 3 object bugs with different positions and speed and put them all
 // in an ARRAY 
+const player = new Player(202, 400); 
+const enemy1 = new Enemy(10, 63); 
+const enemy2 = new Enemy(-50, 145); 
+const enemy3 = new Enemy(20, 230); 
+const allEnemies = [enemy1, enemy2, enemy3]
 
 
 /******* LISTENER ******/
@@ -151,5 +151,5 @@ document.addEventListener('keyup', function(e) {
         40: 'down'
     };
 
-    player.handleInput(allowedKeys[e.keyCode]);
+    console.log(player.handleInput(allowedKeys[e.keyCode]));
 });
