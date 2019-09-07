@@ -1,4 +1,5 @@
 
+
 /******* ENEMY'S CLASS & METHODS  ******/
 
 class Enemy {
@@ -6,20 +7,18 @@ class Enemy {
         this.sprite = 'images/enemy-bug.png';
            this.x = x;
         this.y = y;
-
-        // Setting the Enemy speed (you need to implement)
         this.speed = s; 
         this.height = 65;
         this.width = 95; 
-
     }
 
     update(dt) { 
+        
         // manages on/off canvas randomly 
         if(this.x > ctx.canvas.width + this.width) {
             this.x = -200 * Math.floor(Math.random() * 4) + 1; 
         } else {
-            this.x += 300 * dt; 
+            this.x += this.speed * dt; 
         }
 
         // handles collision
@@ -49,7 +48,7 @@ class Player {
     }
 
     update() { 
-        // RESET Method: send player to initial position when it reaches the water 
+        // RESET Method: player goes back to initial position when reaching the water 
         const positionsX = [2, 102, 202, 302, 402]; 
         const positionY = -5
         
@@ -84,16 +83,12 @@ class Player {
 }
   
 
-
 /******* INSTANTIATE OBJECTS ******/
 
-// Create 3 object bugs with different positions and speed and put them all
-// in an ARRAY 
-
 const player = new Player(202, 400); 
-const enemy1 = new Enemy(-100, 63); 
-const enemy2 = new Enemy(20, 145); 
-const enemy3 = new Enemy(-80, 230); 
+const enemy1 = new Enemy(-100, 63, 400); 
+const enemy2 = new Enemy(20, 145, 250); 
+const enemy3 = new Enemy(-80, 230, 300); 
 const allEnemies = [enemy1, enemy2, enemy3]
 
 /******* LISTENER ******/
