@@ -1,12 +1,6 @@
 
 /******* ENEMY'S CLASS & METHODS  ******/
 
-
-/* TO DO 
- - The Enemy function, which initiates the Enemy by:
-        Setting the Enemy speed (you need to implement)
-*/
-
 class Enemy {
     constructor(x, y, s) {
         this.sprite = 'images/enemy-bug.png';
@@ -20,20 +14,12 @@ class Enemy {
 
     }
 
-        // Update the enemy's position OR LOCATION, required method for game
-        // Parameter: dt, a time delta between ticks
     update(dt) { 
-        this.x += 150 * dt; 
-        // You should multiply any movement by the dt parameter
-        // which will ensure the game runs at the same speed for
-        // all computers.
-
-        // Reappear on canvas 
-        const enemyPositionsX = [-150, -220, -180]; 
+        // manages on/off canvas randomly 
         if(this.x > ctx.canvas.width + this.width) {
-            enemyPositionsX.forEach(pX => {
-                this.x = pX; 
-            }); 
+            this.x = -200 * Math.floor(Math.random() * 4) + 1; 
+        } else {
+            this.x += 300 * dt; 
         }
 
         // handles collision
@@ -44,14 +30,11 @@ class Enemy {
                 player.x = 202;
                 player.y = 400; 
         }
-
     } 
     
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y); 
     }
-
-
 }
 
 /******* PLAYER'S CLASS & METHODS ******/
@@ -98,7 +81,6 @@ class Player {
             this.y += vertical;
         }
     }
-
 }
   
 
