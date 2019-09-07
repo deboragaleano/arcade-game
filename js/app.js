@@ -28,6 +28,14 @@ class Enemy {
         // which will ensure the game runs at the same speed for
         // all computers.
 
+        // Reappear on canvas 
+        const enemyPositionsX = [-150, -220, -180]; 
+        if(this.x > ctx.canvas.width + this.width) {
+            enemyPositionsX.forEach(pX => {
+                this.x = pX; 
+            }); 
+        }
+
         // handles collision
         if (this.x < player.x + player.width  && 
             this.x + this.width  > player.x && 
@@ -57,8 +65,8 @@ class Player {
         this.width = 65; 
     }
 
-    update(dt) { 
-        // send player to initial position when it reaches the water 
+    update() { 
+        // RESET Method: send player to initial position when it reaches the water 
         const positionsX = [2, 102, 202, 302, 402]; 
         const positionY = -5
         
@@ -91,19 +99,6 @@ class Player {
         }
     }
 
-    // reset() {
-    //     const positionsX = [2, 102, 202, 302, 402]; 
-    //     const positionY = -5
-        
-    //     positionsX.forEach(position => {
-    //         if(player.x === position && player.y === positionY) {
-    //             setTimeout(() => {
-    //                 player.x = 202;
-    //                 player.y = 400; 
-    //             }, 400)
-    //         }
-    //     });  
-    // }
 }
   
 
@@ -112,14 +107,12 @@ class Player {
 
 // Create 3 object bugs with different positions and speed and put them all
 // in an ARRAY 
-Player.reset; 
 
 const player = new Player(202, 400); 
 const enemy1 = new Enemy(-100, 63); 
 const enemy2 = new Enemy(20, 145); 
 const enemy3 = new Enemy(-80, 230); 
 const allEnemies = [enemy1, enemy2, enemy3]
-
 
 /******* LISTENER ******/
 
